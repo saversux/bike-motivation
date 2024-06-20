@@ -18,10 +18,12 @@ var region string
 var botToken string
 var channelID string
 
-func generate(projectId string, region string, modelName string) string {
+// generate generates content using the specified project ID, region, and model name.
+// It returns the generated content as a string.
+func generate(projectID string, region string, modelName string) string {
 	ctx := context.Background()
 
-	client, err := genai.NewClient(ctx, projectId, region)
+	client, err := genai.NewClient(ctx, projectID, region)
 	if err != nil {
 		log.Fatalf("error creating genai client: %v", err)
 	}
@@ -36,6 +38,7 @@ func generate(projectId string, region string, modelName string) string {
 	return getFirstPart(resp)
 }
 
+// sendMessage sends a message to the specified Discord channel using the provided bot token.
 func sendMessage(botToken string, channelID string, message string) {
 	discord, err := discordgo.New("Bot " + botToken)
 	if err != nil {
@@ -45,6 +48,7 @@ func sendMessage(botToken string, channelID string, message string) {
 	discord.ChannelMessageSend(channelID, message)
 }
 
+// getFirstPart returns the first part of the generated content response as a string.
 func getFirstPart(resp *genai.GenerateContentResponse) string {
 	s := ""
 	buf := bytes.NewBufferString(s)
