@@ -60,7 +60,7 @@ func main() {
 	region = os.Getenv("RUN_REGION")
 
 	if botToken == "" || channelID == "" || projectID == "" || region == "" {
-		log.Fatalf("missing environment variables")
+		log.Fatalf("missing environment variables DISCORD_BOT_TOKEN, DISCORD_CHANNEL_ID, RUN_PROJECT_ID, RUN_REGION")
 	}
 
 	sendMessage(botToken, channelID, generate(projectID, region, model))
